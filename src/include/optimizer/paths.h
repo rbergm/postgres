@@ -48,6 +48,9 @@ typedef RelOptInfo *(*join_search_hook_type) (PlannerInfo *root,
 											  List *initial_rels);
 extern PGDLLIMPORT join_search_hook_type join_search_hook;
 
+typedef RelOptInfo *(*make_join_rel_hook_type) (PlannerInfo *root,
+												RelOptInfo *rel1, RelOptInfo *rel2);
+extern PGDLLIMPORT make_join_rel_hook_type make_join_rel_hook;
 
 extern RelOptInfo *make_one_rel(PlannerInfo *root, List *joinlist);
 extern RelOptInfo *standard_join_search(PlannerInfo *root, int levels_needed,
@@ -94,6 +97,41 @@ extern void add_paths_to_joinrel(PlannerInfo *root, RelOptInfo *joinrel,
 								 JoinType jointype, SpecialJoinInfo *sjinfo,
 								 List *restrictlist);
 
+extern Path *get_memoize_path(PlannerInfo *root,
+							  RelOptInfo *innerrel, RelOptInfo *outerrel,
+							  Path *inner_path, Path *outer_path,
+							  JoinType jointype, JoinPathExtraData *extra);
+
+extern void try_nestloop_path(PlannerInfo *root,
+							  RelOptInfo *joinrel,
+							  Path *outer_path, Path *inner_path,
+							  List *pathkeys,
+							  JoinType jointype, JoinPathExtraData *extra);
+
+extern void consider_parallel_nestloop(PlannerInfo *root, RelOptInfo *joinrel,
+									   RelOptInfo *outerrel, RelOptInfo *innerrel,
+									   JoinType jointype, JoinPathExtraData *extra);
+
+extern void sort_inner_and_outer(PlannerInfo *root, RelOptInfo *joinrel,
+								 RelOptInfo *outerrel, RelOptInfo *innerrel,
+								 JoinType jointype, JoinPathExtraData *extra);
+
+extern void generate_mergejoin_paths(PlannerInfo *root, RelOptInfo *joinrel,
+									 RelOptInfo *innerrel, Path *outerpath,
+									 JoinType jointype, JoinPathExtraData *extra,
+									 bool useallclauses, Path *inner_cheapest_total,
+									 List *merge_pathkeys, bool is_partial);
+
+extern void consider_parallel_mergejoin(PlannerInfo *root, RelOptInfo *joinrel,
+										RelOptInfo *outerrel, RelOptInfo *innerrel,
+										JoinType jointype, JoinPathExtraData *extra,
+										Path *inner_cheapest_total);
+
+extern void hash_inner_and_outer(PlannerInfo *root, RelOptInfo *joinrel,
+								 RelOptInfo *outerrel, RelOptInfo *innerrel,
+								 JoinType jointype, JoinPathExtraData *extra);
+
+
 /*
  * joinrels.c
  *	  routines to determine which relations to join
@@ -101,6 +139,8 @@ extern void add_paths_to_joinrel(PlannerInfo *root, RelOptInfo *joinrel,
 extern void join_search_one_level(PlannerInfo *root, int level);
 extern RelOptInfo *make_join_rel(PlannerInfo *root,
 								 RelOptInfo *rel1, RelOptInfo *rel2);
+extern RelOptInfo *standard_make_join_rel(PlannerInfo *root,
+										  RelOptInfo *rel1, RelOptInfo *rel2);
 extern Relids add_outer_joins_to_relids(PlannerInfo *root, Relids input_relids,
 										SpecialJoinInfo *sjinfo,
 										List **pushed_down_joins);

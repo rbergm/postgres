@@ -30,6 +30,8 @@
 #include "optimizer/planmain.h"
 
 
+prepare_make_one_rel_hook_type prepare_make_one_rel_hook = NULL;
+
 /*
  * query_planner
  *	  Generate a path (that is, a simplified plan) for a basic query,
@@ -273,6 +275,9 @@ query_planner(PlannerInfo *root,
 	 * appendrels.
 	 */
 	distribute_row_identity_vars(root);
+
+	if (prepare_make_one_rel_hook)
+		prepare_make_one_rel_hook(root, joinlist);
 
 	/*
 	 * Ready to do the primary planning.
