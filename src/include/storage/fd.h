@@ -216,4 +216,7 @@ FileWrite(File file, const void *buffer, size_t amount, off_t offset,
 	return FileWriteV(file, &iov, 1, offset, wait_event_info);
 }
 
+/* pg_lab additions */
+extern struct vfd *GetVfdByFile(File file);
+
 #endif							/* FD_H */

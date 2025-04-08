@@ -4049,3 +4049,17 @@ ResOwnerPrintFile(Datum res)
 {
 	return psprintf("File %d", DatumGetInt32(res));
 }
+
+/* pg_lab additions */
+struct vfd*
+GetVfdByFile(File file)
+{
+    if (FileIsValid(file))
+    {
+        return &VfdCache[file];
+    }
+    else
+    {
+        return NULL;
+    }
+}
