@@ -3974,3 +3974,17 @@ assign_debug_io_direct(const char *newval, void *extra)
 
 	io_direct_flags = *flags;
 }
+
+/* pg_lab additions */
+struct vfd*
+GetVfdByFile(File file)
+{
+    if (FileIsValid(file))
+    {
+        return &VfdCache[file];
+    }
+    else
+    {
+        return NULL;
+    }
+}

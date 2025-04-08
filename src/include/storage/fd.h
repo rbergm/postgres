@@ -199,4 +199,7 @@ extern int	data_sync_elevel(int elevel);
 #define PG_TEMP_FILES_DIR "pgsql_tmp"
 #define PG_TEMP_FILE_PREFIX "pgsql_tmp"
 
+/* pg_lab additions */
+extern struct vfd *GetVfdByFile(File file);
+
 #endif							/* FD_H */
