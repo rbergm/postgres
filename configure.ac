@@ -17,7 +17,7 @@ dnl Read the Autoconf manual for details.
 dnl
 m4_pattern_forbid(^PGAC_)dnl to catch undefined macros
 
-AC_INIT([PostgreSQL], [16.8], [pgsql-bugs@lists.postgresql.org], [], [https://www.postgresql.org/])
+AC_INIT([PostgreSQL], [16.9], [pgsql-bugs@lists.postgresql.org], [], [https://www.postgresql.org/])
 
 m4_if(m4_defn([m4_PACKAGE_VERSION]), [2.69], [], [m4_fatal([Autoconf version 2.69 is required.
 Untested combinations of 'autoconf' and PostgreSQL versions are not
@@ -1803,7 +1803,6 @@ AC_CHECK_FUNCS(m4_normalize([
 	inet_pton
 	kqueue
 	mbstowcs_l
-	memset_s
 	posix_fallocate
 	ppoll
 	pthread_is_threaded_np
@@ -1849,6 +1848,8 @@ AC_CHECK_DECLS([strlcat, strlcpy, strnlen])
 AC_CHECK_DECLS([preadv], [], [AC_LIBOBJ(preadv)], [#include <sys/uio.h>])
 AC_CHECK_DECLS([pwritev], [], [AC_LIBOBJ(pwritev)], [#include <sys/uio.h>])
 AC_CHECK_DECLS([strchrnul], [], [], [#include <string.h>])
+AC_CHECK_DECLS([memset_s], [], [], [#define __STDC_WANT_LIB_EXT1__ 1
+#include <string.h>])
 
 # This is probably only present on macOS, but may as well check always
 AC_CHECK_DECLS(F_FULLFSYNC, [], [], [#include <fcntl.h>])
