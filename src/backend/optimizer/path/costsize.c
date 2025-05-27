@@ -154,29 +154,39 @@ bool		enable_partition_pruning = true;
 bool		enable_presorted_aggregate = true;
 bool		enable_async_append = true;
 
-cost_seqscan_hook_type cost_seqscan_hook = NULL;
-cost_index_hook_type cost_index_hook = NULL;
-cost_bitmap_heap_scan_hook_type cost_bitmap_heap_scan_hook = NULL;
-cost_bitmap_and_node_hook_type cost_bitmap_and_node_hook = NULL;
-cost_bitmap_or_node_hook_type cost_bitmap_or_node_hook = NULL;
-cost_sort_hook_type cost_sort_hook = NULL;
-cost_incremental_sort_hook_type cost_incremental_sort_hook = NULL;
-cost_material_hook_type cost_material_hook = NULL;
-cost_rescan_hook_type cost_rescan_hook = NULL;
-cost_memoize_rescan_hook_type cost_memoize_rescan_hook = NULL;
-cost_agg_hook_type cost_agg_hook = NULL;
-cost_windowagg_hook_type cost_windowagg_hook = NULL;
-cost_group_hook_type cost_group_hook = NULL;
-initial_cost_nestloop_hook_type initial_cost_nestloop_hook = NULL;
-final_cost_nestloop_hook_type final_cost_nestloop_hook = NULL;
-initial_cost_mergejoin_hook_type initial_cost_mergejoin_hook = NULL;
-final_cost_mergejoin_hook_type final_cost_mergejoin_hook = NULL;
-initial_cost_hashjoin_hook_type initial_cost_hashjoin_hook = NULL;
-final_cost_hashjoin_hook_type final_cost_hashjoin_hook = NULL;
-cost_gather_hook_type cost_gather_hook = NULL;
-cost_gather_merge_hook_type cost_gather_merge_hook = NULL;
-set_baserel_size_estimates_hook_type set_baserel_size_estimates_hook = NULL;
-set_joinrel_size_estimates_hook_type set_joinrel_size_estimates_hook = NULL;
+/* pg_lab additions */
+
+cost_seqscan_hook_type  cost_seqscan_hook = NULL;
+cost_index_hook_type    cost_index_hook = NULL;
+
+cost_bitmap_heap_scan_hook_type     cost_bitmap_heap_scan_hook = NULL;
+cost_bitmap_and_node_hook_type      cost_bitmap_and_node_hook = NULL;
+cost_bitmap_or_node_hook_type       cost_bitmap_or_node_hook = NULL;
+
+cost_sort_hook_type                 cost_sort_hook = NULL;
+cost_incremental_sort_hook_type     cost_incremental_sort_hook = NULL;
+
+cost_material_hook_type         cost_material_hook = NULL;
+cost_rescan_hook_type           cost_rescan_hook = NULL;
+cost_memoize_rescan_hook_type   cost_memoize_rescan_hook = NULL;
+
+cost_agg_hook_type          cost_agg_hook = NULL;
+cost_windowagg_hook_type    cost_windowagg_hook = NULL;
+cost_group_hook_type        cost_group_hook = NULL;
+
+initial_cost_nestloop_hook_type     initial_cost_nestloop_hook = NULL;
+final_cost_nestloop_hook_type       final_cost_nestloop_hook = NULL;
+initial_cost_mergejoin_hook_type    initial_cost_mergejoin_hook = NULL;
+final_cost_mergejoin_hook_type      final_cost_mergejoin_hook = NULL;
+initial_cost_hashjoin_hook_type     initial_cost_hashjoin_hook = NULL;
+final_cost_hashjoin_hook_type       final_cost_hashjoin_hook = NULL;
+
+cost_gather_hook_type           cost_gather_hook = NULL;
+cost_gather_merge_hook_type     cost_gather_merge_hook = NULL;
+
+set_baserel_size_estimates_hook_type    set_baserel_size_estimates_hook = NULL;
+set_joinrel_size_estimates_hook_type    set_joinrel_size_estimates_hook = NULL;
+
 
 typedef struct
 {
