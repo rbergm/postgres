@@ -153,6 +153,8 @@ bool		enable_partition_pruning = true;
 bool		enable_presorted_aggregate = true;
 bool		enable_async_append = true;
 
+/* pg_lab additions */
+
 cost_seqscan_hook_type  cost_seqscan_hook = NULL;
 cost_index_hook_type    cost_index_hook = NULL;
 

@@ -39,6 +39,7 @@ typedef enum
 	COSTS_DIFFERENT,			/* neither path dominates the other on cost */
 } PathCostComparison;
 
+/* pg_lab additions */
 add_path_hook_type add_path_hook = NULL;
 add_partial_path_hook_type add_partial_path_hook = NULL;
 add_path_precheck_hook_type add_path_precheck_hook = NULL;
