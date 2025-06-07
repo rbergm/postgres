@@ -31,7 +31,7 @@
 #include "optimizer/planmain.h"
 
 
-prepare_make_one_rel_hook_type prepare_make_one_rel_hook = NULL;
+prepare_make_one_rel_callback_type prepare_make_one_rel_callback = NULL;
 
 /*
  * query_planner
@@ -274,8 +274,8 @@ query_planner(PlannerInfo *root,
 	 */
 	distribute_row_identity_vars(root);
 
-	if (prepare_make_one_rel_hook)
-		prepare_make_one_rel_hook(root, joinlist);
+	if (prepare_make_one_rel_callback)
+		prepare_make_one_rel_callback(root, joinlist);
 
 	/*
 	 * Ready to do the primary planning.

@@ -18,9 +18,11 @@
 #include "nodes/pathnodes.h"
 
 
+/* pg_lab addition: allow plugins to control the path storage (acceptance and pruning) logic */
 typedef void (*add_path_hook_type) (RelOptInfo *parent_rel, Path *new_path);
 extern add_path_hook_type add_path_hook;
 
+/* pg_lab addition: allow plugins to control the storage (acceptance and pruning) logic for parallel paths */
 typedef void (*add_partial_path_hook_type) (RelOptInfo *parent_rel, Path *new_path);
 extern add_partial_path_hook_type add_partial_path_hook;
 
