@@ -8,7 +8,7 @@
 
 project('postgresql',
   ['c'],
-  version: '17.5',
+  version: '17.6',
   license: 'PostgreSQL',
 
   # We want < 0.56 for python 3.5 compatibility on old platforms. EPEL for
@@ -1055,7 +1055,7 @@ if not perlopt.disabled()
       if cc.get_id() == 'msvc'
         # prevent binary mismatch between MSVC built plperl and Strawberry or
         # msys ucrt perl libraries
-        perl_v = run_command(perl, '-V').stdout()
+        perl_v = run_command(perl, '-V', check: false).stdout()
         if not perl_v.contains('USE_THREAD_SAFE_LOCALE')
           perl_ccflags += ['-DNO_THREAD_SAFE_LOCALE']
         endif
@@ -1888,10 +1888,7 @@ if cc.links('''
   cdata.set('HAVE__BUILTIN_OP_OVERFLOW', 1)
 endif
 
-
-# XXX: The configure.ac check for __cpuid() is broken, we don't copy that
-# here. To prevent problems due to two detection methods working, stop
-# checking after one.
+# Check for __get_cpuid() and __cpuid().
 if cc.links('''
     #include <cpuid.h>
     int main(int arg, char **argv)
